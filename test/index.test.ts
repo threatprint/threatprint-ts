@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { renderGlyph, parseCVSS, scoreToHue, calculateScore } from '../src/index.js';
+import { detectCVSSVersion, isVersion3 } from '../src/parse.js';
 import testVectors from '../spec/test-vectors.json';
 
 const LOG4SHELL = 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H';
@@ -47,6 +48,46 @@ describe('parseCVSS', () => {
     expect(m.I).toBe('H');
     expect(m.A).toBe('H');
     expect(m.S).toBe('C');
+  });
+});
+
+describe('detectCVSSVersion', () => {
+  it('detects CVSS 3.0 from vector starting with CVSS:3.0/', () => {
+    expect(detectCVSSVersion(CVSS30_LOG4SHELL)).toBe('3.0');
+  });
+
+  it('detects CVSS 3.1 from vector starting with CVSS:3.1/', () => {
+    expect(detectCVSSVersion(CVSS31_LOG4SHELL)).toBe('3.1');
+  });
+
+  it('detects CVSS 4.0 from vector starting with CVSS:4.0/', () => {
+    expect(detectCVSSVersion(LOG4SHELL)).toBe('4.0');
+  });
+
+  it('throws error for unsupported version', () => {
+    expect(() => detectCVSSVersion('CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:P')).toThrow(
+      'Unsupported CVSS version'
+    );
+  });
+
+  it('throws error for vector without CVSS prefix', () => {
+    expect(() => detectCVSSVersion('AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H')).toThrow(
+      'Unsupported CVSS version'
+    );
+  });
+});
+
+describe('isVersion3', () => {
+  it('returns true for CVSS 3.0', () => {
+    expect(isVersion3('3.0')).toBe(true);
+  });
+
+  it('returns true for CVSS 3.1', () => {
+    expect(isVersion3('3.1')).toBe(true);
+  });
+
+  it('returns false for CVSS 4.0', () => {
+    expect(isVersion3('4.0')).toBe(false);
   });
 });
 

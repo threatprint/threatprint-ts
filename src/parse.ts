@@ -29,12 +29,18 @@ export function parseCVSS(vector: string): ParsedMetrics {
 }
 
 export function detectCVSSVersion(vector: string): '3.0' | '3.1' | '4.0' {
-  if (vector.includes('CVSS:3.1')) {
+  if (vector.startsWith('CVSS:3.1/')) {
     return '3.1';
-  } else if (vector.includes('CVSS:3.0')) {
+  } else if (vector.startsWith('CVSS:3.0/')) {
     return '3.0';
+  } else if (vector.startsWith('CVSS:4.0/')) {
+    return '4.0';
   }
-  return '4.0';
+  throw new Error(`Unsupported CVSS version. Vector must start with 'CVSS:3.0/', 'CVSS:3.1/', or 'CVSS:4.0/'`);
+}
+
+export function isVersion3(version: '3.0' | '3.1' | '4.0'): boolean {
+  return version === '3.0' || version === '3.1';
 }
 
 export function getSeverity(metrics: ParsedMetrics, key: string): number {

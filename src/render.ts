@@ -1,5 +1,5 @@
 import type { RenderOptions } from './types.js';
-import { parseCVSS, getSeverity, detectCVSSVersion } from './parse.js';
+import { parseCVSS, getSeverity, detectCVSSVersion, isVersion3 } from './parse.js';
 import { calculateScore } from './score.js';
 import { scoreToHue } from './color.js';
 import { arcPath, starPath, radialCuts, ringFill } from './geometry.js';
@@ -23,16 +23,16 @@ export function renderGlyph(options: RenderOptions): string {
   const ac = getSeverity(metrics, 'AC');
   
   // For CVSS 3.0/3.1, AT doesn't exist, so always treat as solid (AT:N)
-  const at = version === '3.0' || version === '3.1' ? 1.0 : getSeverity(metrics, 'AT');
+  const at = isVersion3(version) ? 1.0 : getSeverity(metrics, 'AT');
   
   // For CVSS 3.0/3.1, use C/I/A instead of VC/VI/VA
-  const vc = version === '3.0' || version === '3.1' ? getSeverity(metrics, 'C') : getSeverity(metrics, 'VC');
-  const vi = version === '3.0' || version === '3.1' ? getSeverity(metrics, 'I') : getSeverity(metrics, 'VI');
-  const va = version === '3.0' || version === '3.1' ? getSeverity(metrics, 'A') : getSeverity(metrics, 'VA');
+  const vc = isVersion3(version) ? getSeverity(metrics, 'C') : getSeverity(metrics, 'VC');
+  const vi = isVersion3(version) ? getSeverity(metrics, 'I') : getSeverity(metrics, 'VI');
+  const va = isVersion3(version) ? getSeverity(metrics, 'A') : getSeverity(metrics, 'VA');
   
   // For CVSS 3.0/3.1, if S:C (Changed), both bands mirror C/I/A. If S:U (Unchanged), no split.
   let sc: number, si: number, sa: number;
-  if (version === '3.0' || version === '3.1') {
+  if (isVersion3(version)) {
     const scopeChanged = getSeverity(metrics, 'S') > 0.5; // S:C = 1.0, S:U = 0.0
     if (scopeChanged) {
       // Split band: both bands mirror C/I/A
