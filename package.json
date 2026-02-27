@@ -29,7 +29,7 @@
     "svg",
     "glyph",
     "security",
-    "threatprint"
+    "vulnsig"
   ],
   "license": "MIT",
   "dependencies": {

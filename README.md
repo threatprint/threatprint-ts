@@ -1,2 +1,2 @@
-# threatprint-ts
-The TS implementation of Threatprint
+# vulnsig-ts
+The TS implementation of VulnSig
