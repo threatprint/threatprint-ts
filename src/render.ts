@@ -75,7 +75,7 @@ export function renderGlyph(options: RenderOptions): string {
   const cutWidthDeg = 3;
 
   const starOuterR = innerR - 2;
-  const starInnerR = starOuterR * (0.75 - ac * 0.5);
+  const starInnerR = starOuterR * (0.55 - ac * 0.35);
 
   // PR stroke
   const prRaw = metrics.PR;
