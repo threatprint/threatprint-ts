@@ -1,7 +1,7 @@
 {
-  "name": "threatprint",
+  "name": "vulnsig",
   "version": "0.1.0",
-  "description": "Render CVSS vulnerability vectors as expressive SVG fingerprints",
+  "description": "Render CVSS vulnerability vectors as expressive SVG glyphs",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
