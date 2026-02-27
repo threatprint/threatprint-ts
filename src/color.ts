@@ -21,9 +21,10 @@ export function scoreToHue(score: number): HueResult {
   // Lightness multiplier: asymmetric — subtle brightening for low scores,
   // aggressive darkening for high scores (8-10 distinguishability)
   //   score 0: 1.15, score 5: 1.0, score 10: 0.55
-  const light = w <= 0.5
-    ? 1.0 + (0.5 - w) * 0.3   // low end:  1.0 → 1.15
-    : 1.0 - (w - 0.5) * 0.9;  // high end: 1.0 → 0.55
+  const light =
+    w <= 0.5
+      ? 1.0 + (0.5 - w) * 0.3 // low end:  1.0 → 1.15
+      : 1.0 - (w - 0.5) * 0.9; // high end: 1.0 → 0.55
 
   return { hue, sat, light };
 }

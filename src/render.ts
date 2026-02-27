@@ -118,10 +118,10 @@ export function renderGlyph(options: RenderOptions): string {
       const a = (Math.PI * 2 * i) / petalCount - Math.PI / 2;
       const x1 = cx + Math.cos(a) * spikeBase;
       const y1 = cy + Math.sin(a) * spikeBase;
-      const x2 = cx + Math.cos(a) * (spikeBase + 6.0);
-      const y2 = cy + Math.sin(a) * (spikeBase + 6.0);
+      const x2 = cx + Math.cos(a) * (spikeBase + 3.4);
+      const y2 = cy + Math.sin(a) * (spikeBase + 3.4);
       parts.push(
-        `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="hsl(${hue}, ${sat}%, ${52 * light}%)" stroke-width="4.5" stroke-linecap="butt"/>`,
+        `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="hsl(${hue}, ${sat}%, ${52 * light}%)" stroke-width="3.0" stroke-linecap="round"/>`,
       );
     }
   }
