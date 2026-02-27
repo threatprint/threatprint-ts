@@ -79,7 +79,7 @@ export function renderGlyph(options: RenderOptions): string {
 
   // PR stroke
   const prRaw = metrics.PR;
-  const prStrokeWidth = prRaw === 'H' ? 2.5 : prRaw === 'L' ? 1.0 : 0;
+  const prStrokeWidth = prRaw === 'H' ? 3.2 : prRaw === 'L' ? 1.0 : 0;
 
   // UI spikes/bumps
   const uiRaw = metrics.UI;

@@ -51,12 +51,15 @@ export function radialCuts(
   const cuts: { startDeg: number; endDeg: number }[] = [];
   const sectorSpan = endDeg - startDeg;
   const step = cutWidth + gapDeg;
-  const numCuts = Math.floor(sectorSpan / step);
-  const patternSpan = numCuts * step;
+  // Number of visible segments = numCuts + 1, each gapDeg wide.
+  // Total = numCuts * cutWidth + (numCuts + 1) * gapDeg = sectorSpan
+  // Solve: numCuts = floor((sectorSpan - gapDeg) / step)
+  const numCuts = Math.floor((sectorSpan - gapDeg) / step);
+  const patternSpan = numCuts * cutWidth + (numCuts + 1) * gapDeg;
   const offset = (sectorSpan - patternSpan) / 2;
   for (let i = 0; i < numCuts; i++) {
-    const cutStart = startDeg + offset + i * step + gapDeg;
-    const cutEnd = Math.min(cutStart + cutWidth, endDeg);
+    const cutStart = startDeg + offset + (i + 1) * gapDeg + i * cutWidth;
+    const cutEnd = cutStart + cutWidth;
     cuts.push({ startDeg: cutStart, endDeg: cutEnd });
   }
   return cuts;
