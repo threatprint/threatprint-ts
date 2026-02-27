@@ -21,15 +21,15 @@ export function renderGlyph(options: RenderOptions): string {
 
   // Metric severities - handle CVSS 3.0, 3.1, and 4.0
   const ac = getSeverity(metrics, 'AC');
-  
+
   // For CVSS 3.0/3.1, AT doesn't exist, so always treat as solid (AT:N)
   const at = isVersion3(version) ? 1.0 : getSeverity(metrics, 'AT');
-  
+
   // For CVSS 3.0/3.1, use C/I/A instead of VC/VI/VA
   const vc = isVersion3(version) ? getSeverity(metrics, 'C') : getSeverity(metrics, 'VC');
   const vi = isVersion3(version) ? getSeverity(metrics, 'I') : getSeverity(metrics, 'VI');
   const va = isVersion3(version) ? getSeverity(metrics, 'A') : getSeverity(metrics, 'VA');
-  
+
   // For CVSS 3.0/3.1, if S:C (Changed), both bands mirror C/I/A. If S:U (Unchanged), no split.
   let sc: number, si: number, sa: number;
   if (isVersion3(version)) {

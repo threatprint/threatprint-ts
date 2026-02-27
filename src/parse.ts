@@ -36,7 +36,9 @@ export function detectCVSSVersion(vector: string): '3.0' | '3.1' | '4.0' {
   } else if (vector.startsWith('CVSS:4.0/')) {
     return '4.0';
   }
-  throw new Error(`Unsupported CVSS version. Vector must start with 'CVSS:3.0/', 'CVSS:3.1/', or 'CVSS:4.0/'`);
+  throw new Error(
+    `Unsupported CVSS version. Vector must start with 'CVSS:3.0/', 'CVSS:3.1/', or 'CVSS:4.0/'`,
+  );
 }
 
 export function isVersion3(version: '3.0' | '3.1' | '4.0'): boolean {

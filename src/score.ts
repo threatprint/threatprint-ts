@@ -8,7 +8,7 @@ const { Cvss4P0, Cvss3P1, Cvss3P0 } = aeCvss as unknown as typeof import('ae-cvs
 export function calculateScore(vector: string): number {
   try {
     const version = detectCVSSVersion(vector);
-    
+
     if (version === '3.1') {
       const cvss = new Cvss3P1();
       cvss.applyVector(vector);
