@@ -192,7 +192,6 @@ export function renderGlyph(options: RenderOptions): string {
     `<circle cx="${cx}" cy="${cy}" r="${hueRingR}" fill="none" stroke="hsl(${hue}, ${sat}%, ${52 * light}%)" stroke-width="${ringWidth}"/>`,
   );
 
-
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 120 120" style="overflow:visible">${parts.join('')}</svg>`;
 }
 
